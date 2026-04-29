@@ -7,16 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>recipe-factory</name>
   <url>http://maven.apache.org</url>
-  <!-- <modules>
-      <module>sample-batch-before</module>
-      <module>sample-batch-after</module>
-  </modules> -->
-  <!-- <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies> -->
+  <modules>
+    <module>sample-batch-before</module>
+  </modules>
 </project>
