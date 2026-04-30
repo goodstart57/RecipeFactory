@@ -10,6 +10,8 @@
   <properties>
     <java.version>1.8</java.version>
     <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
+    <rewrite.version>8.79.4</rewrite.version>
+    <rewrite.maven.plugin.version>6.36.0</rewrite.maven.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -38,10 +40,16 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <version>${spring-boot.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.openrewrite.maven</groupId>
+          <artifactId>rewrite-maven-plugin</artifactId>
+          <version>${rewrite.maven.plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
   <modules>
+    <module>rewrite-recipes</module>
     <module>sample-batch-before</module>
   </modules>
 </project>

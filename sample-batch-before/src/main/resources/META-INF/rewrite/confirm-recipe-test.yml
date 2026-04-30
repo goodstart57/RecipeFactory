@@ -1,0 +1,7 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.ljs.rfactory.batch.before.ConfirmRecipeTest
+displayName: ConfirmRecipe test for sample-batch-before
+description: Runs the custom ConfirmRecipe against the sample-batch-before module.
+recipeList:
+  - com.ljs.rfactory.recipe.ConfirmRecipe

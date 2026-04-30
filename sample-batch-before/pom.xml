@@ -47,6 +47,23 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>org.openrewrite.maven</groupId>
+        <artifactId>rewrite-maven-plugin</artifactId>
+        <configuration>
+          <configLocation>${project.basedir}/src/main/resources/META-INF/rewrite/confirm-recipe-test.yml</configLocation>
+          <activeRecipes>
+            <recipe>com.ljs.rfactory.batch.before.ConfirmRecipeTest</recipe>
+          </activeRecipes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.ljs.rfactory</groupId>
+            <artifactId>rewrite-recipes</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
     </plugins>
   </build>
 </project>
