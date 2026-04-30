@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class EmployeeTaskletService {
 
+    private static final String READY_STATUS = "READY";
+
     private final EmployeeSourceRepository employeeSourceRepository;
 
     public EmployeeTaskletService(EmployeeSourceRepository employeeSourceRepository) {
@@ -22,7 +24,7 @@ public class EmployeeTaskletService {
     @Transactional(readOnly = true)
     public List<EmployeeSnapshotDto> fetchReadyEmployees() {
         List<EmployeeSource> employees = employeeSourceRepository.findByStatus(
-                        "READY",
+                        READY_STATUS,
                         PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.ASC, "id")))
                 .getContent();
 

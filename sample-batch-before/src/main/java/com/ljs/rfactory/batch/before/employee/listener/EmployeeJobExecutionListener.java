@@ -15,7 +15,7 @@ public class EmployeeJobExecutionListener extends JobExecutionListenerSupport {
     @Override
     public void afterJob(JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            log.info("sample_employee_job completed with status {}", jobExecution.getStatus());
+            log.info("sample_employeeJob completed with status {}", jobExecution.getStatus());
         }
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class EmployeeTargetWriterConfig {
 
     @Bean
-    public RepositoryItemWriter<EmployeeTarget> sampleEmployeeTargetWriter(EmployeeTargetRepository employeeTargetRepository) {
+    public RepositoryItemWriter<EmployeeTarget> employeeTargetWriter(EmployeeTargetRepository employeeTargetRepository) {
         return new RepositoryItemWriterBuilder<EmployeeTarget>()
                 .repository(employeeTargetRepository)
                 .methodName("save")

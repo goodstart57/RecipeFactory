@@ -17,35 +17,37 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EmployeeJobConfig {
 
+    private static final int EMPLOYEE_CHUNK_SIZE = 2;
+
     @Bean
-    public Job sampleEmployeeJob(JobBuilderFactory jobBuilderFactory,
-                           Step sampleEmployeeLoadStep,
-                           Step sampleEmployeeChunkStep,
+    public Job employeeJob(JobBuilderFactory jobBuilderFactory,
+                           Step employeeLoadStep,
+                           Step employeeChunkStep,
                            EmployeeJobExecutionListener employeeJobExecutionListener) {
-        return jobBuilderFactory.get("sample_employee_job")
+        return jobBuilderFactory.get("sample_employeeJob")
                 .listener(employeeJobExecutionListener)
-                .start(sampleEmployeeLoadStep)
-                .next(sampleEmployeeChunkStep)
+                .start(employeeLoadStep)
+                .next(employeeChunkStep)
                 .build();
     }
 
     @Bean
-    public Step sampleEmployeeLoadStep(StepBuilderFactory stepBuilderFactory, EmployeeLoadTasklet employeeLoadTasklet) {
-        return stepBuilderFactory.get("sample_employee_load_step")
+    public Step employeeLoadStep(StepBuilderFactory stepBuilderFactory, EmployeeLoadTasklet employeeLoadTasklet) {
+        return stepBuilderFactory.get("sample_employeeLoadStep")
                 .tasklet(employeeLoadTasklet)
                 .build();
     }
 
     @Bean
-    public Step sampleEmployeeChunkStep(StepBuilderFactory stepBuilderFactory,
-                                  RepositoryItemReader<EmployeeSource> sampleEmployeeSourceReader,
+    public Step employeeChunkStep(StepBuilderFactory stepBuilderFactory,
+                                  RepositoryItemReader<EmployeeSource> employeeSourceReader,
                                   ItemProcessor<EmployeeSource, EmployeeTarget> employeeProcessor,
-                                  RepositoryItemWriter<EmployeeTarget> sampleEmployeeTargetWriter) {
-        return stepBuilderFactory.get("sample_employee_chunk_step")
-                .<EmployeeSource, EmployeeTarget>chunk(2)
-                .reader(sampleEmployeeSourceReader)
+                                  RepositoryItemWriter<EmployeeTarget> employeeTargetWriter) {
+        return stepBuilderFactory.get("sample_employeeChunkStep")
+                .<EmployeeSource, EmployeeTarget>chunk(EMPLOYEE_CHUNK_SIZE)
+                .reader(employeeSourceReader)
                 .processor(employeeProcessor)
-                .writer(sampleEmployeeTargetWriter)
+                .writer(employeeTargetWriter)
                 .build();
     }
 }

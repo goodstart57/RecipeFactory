@@ -13,16 +13,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EmployeeSourceReaderConfig {
 
+    private static final String READY_STATUS = "READY";
+    private static final int EMPLOYEE_PAGE_SIZE = 2;
+
     @Bean
     @StepScope
-    public RepositoryItemReader<EmployeeSource> sampleEmployeeSourceReader(EmployeeSourceRepository employeeSourceRepository) {
+    public RepositoryItemReader<EmployeeSource> employeeSourceReader(EmployeeSourceRepository employeeSourceRepository) {
         return new RepositoryItemReaderBuilder<EmployeeSource>()
-                .name("sampleEmployeeSourceReader")
+                .name("employeeSourceReader")
                 .repository(employeeSourceRepository)
                 .methodName("findByStatus")
-                .arguments(Collections.singletonList("READY"))
+                .arguments(Collections.singletonList(READY_STATUS))
                 .sorts(Collections.singletonMap("id", Sort.Direction.ASC))
-                .pageSize(2)
+                .pageSize(EMPLOYEE_PAGE_SIZE)
                 .build();
     }
 }

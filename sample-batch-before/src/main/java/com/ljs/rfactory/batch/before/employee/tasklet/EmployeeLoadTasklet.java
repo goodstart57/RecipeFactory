@@ -25,7 +25,7 @@ public class EmployeeLoadTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
         List<EmployeeSnapshotDto> employees = employeeTaskletService.fetchReadyEmployees();
-        log.info("sample_employee_load_step read {} employees", employees.size());
+        log.info("sample_employeeLoadStep read {} employees", employees.size());
         return RepeatStatus.FINISHED;
     }
 }
