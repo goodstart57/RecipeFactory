@@ -16,64 +16,74 @@
 
 ## Rule Priority
 
-코드 생성 및 수정 시 다음 규칙을 반드시 우선 적용한다.
+코드 생성 및 수정 시 다음 우선순위를 따른다.
 
-1. 이 파일 (AGENTS.md)
-2. `docs/*.md` (존재하는 경우)
+1. AGENTS.md
+2. `docs/*.md`
 3. 기존 프로젝트 코드 및 구조
-4. 일반적인 예제나 인터넷 자료
+4. 일반 예제 / 외부 자료
+
+---
+
+## Task Execution Pattern (IMPORTANT)
+
+모든 작업은 TODO 기반으로 수행한다.
+
+- 작업 시작 전 TODO를 생성하거나 기존 TODO를 읽는다
+- TODO는 3~7개 수준으로 유지한다
+- 한 번에 하나의 TODO만 수행한다
+- 수행 후 TODO 상태를 갱신한다
+- 실패 시 TODO를 수정하고 원인을 반영한다
+- 완료 기준은 Validation 성공이다
 
 ---
 
 ## Maven Rules
 
-- dependency version은 직접 선언하지 말고 다음 우선순위를 따른다:
-  1. Spring Boot BOM (`spring-boot-dependencies`)
+- dependency version 우선순위:
+  1. Spring Boot BOM
   2. root `dependencyManagement`
-  3. 불가피한 경우에만 명시적 version 사용 (이유 필요)
+  3. 필요한 경우만 명시 (이유 포함)
 
-- 멀티 모듈 구조 규칙:
-  - root 프로젝트는 `packaging = pom`
-  - 모든 모듈은 root POM을 parent로 가진다
-  - 신규 모듈은 반드시 root `<modules>`에 추가
-  - 모듈 간 의존성은 project coordinates 사용
-  - 다른 모듈은 불필요하게 수정하지 않는다
-
----
-
-## Spring Rules
-
-- field injection 금지 → constructor injection 사용
-- `final` 필드 우선 사용
-- controller에는 비즈니스 로직을 넣지 않는다
-- 설정은 `@ConfigurationProperties` 사용
-- 불필요한 Bean / Annotation 추가 금지
-- 새로운 dependency 추가 시 반드시 필요성 설명
+- 멀티 모듈 규칙:
+  - root는 `packaging = pom`
+  - 모든 모듈은 root parent 사용
+  - 신규 모듈은 `<modules>`에 추가
+  - 모듈 간 dependency는 project coordinates 사용
+  - 불필요한 모듈 수정 금지
 
 ---
 
 ## OpenRewrite Rules
 
-- 업그레이드 작업은 OpenRewrite Recipe 기반으로 수행한다
-- 수동 코드 수정은 최소화한다
-- 변경은 반드시 대상 버전 스펙(JDK17 / Spring Boot 3.x)에 맞춰야 한다
+- 변경은 Recipe 기반으로 수행
+- 수동 코드 수정 최소화
+- 대상 버전(JDK17 / Spring Boot 3.x)에 맞춰 작성
 
 ---
 
 ## Execution Rules (Codex)
 
-- workspace root를 기준으로 작업한다
-- 단순 조회 작업에 대해 권한 상승 금지
+- workspace root 기준으로 작업
+- 단순 조회에 대해 권한 상승 금지
 - 실패한 명령은 1회만 재시도
-- 동일한 실패 반복 금지
-- 불확실한 경우 추측하지 말고 질문한다
+- 동일 실패 반복 금지
+- 불확실하면 추측하지 말고 질문
 
 ---
 
 ## Validation
 
-코드 변경 후 반드시 수행:
+모든 변경 후 반드시 실행:
 
 ```bash
 mvn -q -DskipTests compile
+````
+
+필요 시:
+
+```bash
+mvn test
 ```
+
+* 실패 시 우회하지 않고 원인 수정
